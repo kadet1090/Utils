@@ -1,0 +1,19 @@
+{
+    "name": "kadet/utils",
+    "type": "library",
+    "description": "Some utilities like Events, Properties, Timer for PHP (especially CLI)",
+    "keywords": ["utils","utilities","event","timer","properties"],
+    "homepage": "https://github.com/kadet1090/Utils",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Kacper \"Kadet\" Donat",
+            "email": "kadet1090@gmail.com",
+            "homepage": "http://kadet.pipe-software.xaa.pl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
