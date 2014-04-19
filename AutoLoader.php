@@ -30,7 +30,9 @@ class AutoLoader {
      *
      * @param AutoLoader $loader
      */
-    static protected function _unregister(AutoLoader $loader) { }
+    static protected function _unregister(AutoLoader $loader) {
+        spl_autoload_unregister(array($loader, 'load'));
+    }
 
     private $namespace = '';
     private $directory = '';
