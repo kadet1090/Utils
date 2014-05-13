@@ -32,10 +32,10 @@ function is_serialized($data) {
     return false;
 }
 
-function getCaller() {
+function getCaller($no = 0) {
     $backtrace = debug_backtrace();
 
-    return isset($backtrace[2]['class']) ?
-        $backtrace[2]['class'] :
+    return isset($backtrace[2 + $no]['class']) ?
+        $backtrace[2 + $no]['class'] :
         null;
 }
