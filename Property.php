@@ -12,7 +12,7 @@ trait Property {
             $getter = '_get_'.$name;
             $method = $reflection->getMethod($getter);
 
-            if($this->hasAccess($method, $this->getCaller()))
+            if($this->hasAccess($method, getCaller()))
                 return $this->$getter();
             else
                 throw new \RuntimeException('Cannot access ' . ($method->isPrivate() ? 'private' : 'protected') . ' property ' . get_class($this) . '::$' . $name);
@@ -31,7 +31,7 @@ trait Property {
             $setter = '_set_'.$name;
             $method = $reflection->getMethod($setter);
 
-            if($this->hasAccess($method, $this->getCaller()))
+            if($this->hasAccess($method, getCaller()))
                 $this->$setter($value);
             else
                 throw new \RuntimeException('Cannot access ' . ($method->isPrivate() ? 'private' : 'protected') . ' property ' . get_class($this) . '::$' . $name);
@@ -49,7 +49,7 @@ trait Property {
             $unsetter = '_unset_'.$name;
             $method = $reflection->getMethod($unsetter);
 
-            if($this->hasAccess($method, $this->getCaller()))
+            if($this->hasAccess($method, getCaller()))
                 return $this->$unsetter();
             else
                 throw new \RuntimeException('Cannot unset ' . ($method->isPrivate() ? 'private' : 'protected') . ' property ' . get_class($this) . '::$' . $name);
@@ -67,7 +67,7 @@ trait Property {
             $issetter = '_isset_'.$name;
             $method = $reflection->getMethod($issetter);
 
-            if($this->hasAccess($method, $this->getCaller()))
+            if($this->hasAccess($method, getCaller()))
                 return $this->$issetter();
             else
                 return false;
@@ -83,13 +83,5 @@ trait Property {
         return $method->isPublic() ||
         ($method->isProtected() && $caller == get_called_class()) ||
         ($method->isPrivate() && $caller == $method->getDeclaringClass()->getName());
-    }
-
-    private function getCaller() {
-        $backtrace = debug_backtrace();
-
-        return isset($backtrace[2]['class']) ?
-            $backtrace[2]['class'] :
-            null;
     }
 }

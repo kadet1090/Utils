@@ -31,3 +31,11 @@ function is_serialized($data) {
     }
     return false;
 }
+
+function getCaller() {
+    $backtrace = debug_backtrace();
+
+    return isset($backtrace[2]['class']) ?
+        $backtrace[2]['class'] :
+        null;
+}
