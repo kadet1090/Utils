@@ -3,41 +3,53 @@ namespace Kadet\Utils;
 
 class Timer
 {
+    const INFINITE = -0xff;
+
     /**
      * Last run time.
+     *
      * @var int
      */
     protected $_last;
 
     /**
      * Callback to function.
+     *
      * @var callable
      */
     protected $_callback;
 
     /**
      * Callback params.
+     *
      * @var array
      */
     protected $_params;
 
     /**
      * Timer interval.
+     *
      * @var int
      */
     public $interval;
 
     /**
      * Is timer active?
+     *
      * @var bool
      */
     private $active = true;
 
     /**
      * Run action only once?
+     *
      * @var bool
+     *
+     * @deprecated Use start(1) instead of oneTime.
      */
     public $oneTime = false;
+
+    protected $_times = self::INFINITE;
 
     /**
      * Array of all timers (to run tick)
@@ -73,6 +85,11 @@ class Timer
             $this->_last = time();
 
             if ($this->oneTime) $this->stop();
+
+            if ($this->_times != self::INFINITE) {
+                $this->_times--;
+                if($this->_times <= 0) $this->stop();
+            }
         }
     }
 
@@ -87,10 +104,13 @@ class Timer
 
     /**
      * Start timer.
+     *
+     * @param int $times How many times timer should tick?
      */
-    public function start()
+    public function start($times = null)
     {
         $this->active = true;
+        if($times !== null) $this->_times = $times;
     }
 
     /**
@@ -104,7 +124,7 @@ class Timer
     public function __destruct()
     {
         foreach (self::$_timers as $id => $timer) {
-            if($timer == $this)
+            if ($timer == $this)
                 unset(self::$_timers[$id]);
         }
     }
