@@ -9,7 +9,13 @@
 
 namespace Kadet\Utils;
 
-
+/**
+ * Class Logger
+ *
+ * @package Kadet\Utils
+ *
+ * @deprecated
+ */
 class Logger
 {
     /**
