@@ -4,7 +4,7 @@
     "description": "Some utilities like Events, Properties, Timer for PHP (especially CLI)",
     "keywords": ["utils","utilities","event","timer","properties"],
     "homepage": "https://github.com/kadet1090/Utils",
-    "license": "GPLv3",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Kacper \"Kadet\" Donat",

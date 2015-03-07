@@ -1,6 +1,12 @@
 <?php
 namespace Kadet\Utils;
 
+/**
+ * Class Event
+ * @package Kadet\Utils
+ *
+ * Provides
+ */
 class Event
 {
     /**
@@ -11,7 +17,7 @@ class Event
 
     /**
      * Delegates array.
-     * @var callable[int]
+     * @var callable[]
      */
     private $_delegates = array();
 
@@ -25,13 +31,16 @@ class Event
 
     /**
      * Adds callback to event queue.
-     * @param callable $delegate Delegate to run when event is fired.
      *
-     * @throws \InvalidArgumentException
+     * @param callable $delegate Delegate to run when event is fired.
+     * @param bool     $front    If set to true, this callback will be ran first.
      */
-    public function add(callable $delegate)
+    public function add(callable $delegate, $front = false)
     {
-        $this->_delegates[] = $delegate;
+        if($front)
+            array_unshift($this->_delegates, $delegate);
+        else
+            $this->_delegates[] = $delegate;
     }
 
     /**
@@ -63,7 +72,7 @@ class Event
         }
 
         foreach ($this->_delegates as $delegate)
-            call_user_func_array($delegate, $arguments);
+            if(call_user_func_array($delegate, $arguments));
     }
 
     /**
